@@ -1,6 +1,13 @@
 <div class="container">
   <h1>Results!</h1>
-  <p><%= @response %></p>
+
+  <% if @data['found'] && @grid %>
+   <p><strong>Congratulations! </strong><%= @answer.upcase %> is a valid word!"</p>
+  <% elsif @data['found'] == false %>
+    <p>Sorry <%= @answer.upcase %> is not an English word </p>
+  <% else %>
+    <p> <%= @answer.upcase %> cannot be built from <%= @letters%></p>
+  <% end %>
   <%= link_to 'New game', new_path %>
 </div>
 

@@ -10,17 +10,9 @@ class GamesController < ApplicationController
 
   def score
     @letters = params[:letters]
-    answer = params[:answer].downcase
-    data = JSON.parse(open("https://wagon-dictionary.herokuapp.com/#{
-      answer}").read)
-
-    if data['found'] && answer.upcase.chars.all? { |char| answer.upcase.count(char) <= @letters.count(char) }
-      @response = "Well done! #{answer.upcase} is a valid word!"
-    elsif data['found'] == false
-      @response = "Sorry. #{answer.upcase} is not an English word"
-    else
-      @response = "#{answer.upcase} cannot be built from #{@letters}"
-    end
-    @response
+    @answer = params[:answer].downcase
+    @data = JSON.parse(open("https://wagon-dictionary.herokuapp.com/#{
+      @answer}").read)
+    @grid = @answer.upcase.chars.all? { |char| @answer.upcase.count(char) <= @letters.count(char) }
   end
 end
